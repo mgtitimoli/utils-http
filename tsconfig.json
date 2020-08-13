@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "baseUrl": ".",
+    "declaration": true,
+    "esModuleInterop": true,
+    "importHelpers": true,
+    "isolatedModules": true,
+    "lib": ["es2020"],
+    "moduleResolution": "node",
+    "noEmitOnError": true,
+    "outDir": "./dist",
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+    "plugins": [
+      {"transform": "@zerollup/ts-transform-paths"}
+    ],
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "target": "ES2020",
+    "typeRoots": ["./typings", "./node_modules/@types"],
+  },
+  "exclude": ["node_modules"],
+  "include": ["src"],
+}

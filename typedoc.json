@@ -1,0 +1,18 @@
+{
+  "excludeNotExported": true,
+  "external-modulemap": ".*\/src/(.*)\\..*",
+  "hideBreadcrumbs": true,
+  "hideSources": true,
+  "inputFiles": ["./src"],
+  "out": "docs",
+  "plugin": [
+    "typedoc-plugin-example-tag",
+    "typedoc-plugin-external-module-map",
+    "typedoc-plugin-internal-external",
+    "typedoc-plugin-markdown"
+  ],
+  "readme": "none",
+  "skipSidebar": true,
+  "stripInternal": true,
+  "theme": "markdown"
+}

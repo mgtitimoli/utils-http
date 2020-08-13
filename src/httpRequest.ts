@@ -49,5 +49,7 @@ const getJson = (url: RequestInfo, options?: GetJsonOptions) =>
 
 export {getJson, postJson, safeFetch};
 
-export type {GetJsonOptions as HttpRequestGetJsonOptions};
-export type {PostJsonOptions as HttpRequestPostJsonOptions};
+export type {
+  GetJsonOptions as HttpRequestGetJsonOptions,
+  PostJsonOptions as HttpRequestPostJsonOptions
+};

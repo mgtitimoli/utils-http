@@ -1,7 +1,7 @@
 {
   "name": "@mgtitimoli/utils-http",
   "description": "HTTP Utilities",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "author": "Mauro Gabriel Titimoli <mgtitimoli@gmail.com> (https://github.com/mgtitimoli)",
   "license": "MIT",
   "publishConfig": {

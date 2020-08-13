@@ -1,5 +1,3 @@
-import type {Response} from "node-fetch";
-
 import {CustomError} from "@mgtitimoli/utils-error";
 
 import * as withHttpStatusCode from "./httpStatusCode";

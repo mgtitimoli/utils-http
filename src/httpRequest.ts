@@ -1,23 +1,17 @@
 import fetch from "isomorphic-fetch";
 
-import type {RequestInfo, RequestInit, Response} from "node-fetch";
-
 import HttpResponseError from "./HttpResponseError";
 
-type FetchOptionsMode = "cors" | "no-cors" | "same-origin" | "navigate";
+type PostJsonOptions = Omit<RequestInit, "body" | "method"> & {data?: unknown};
 
-type FetchOptions = RequestInit & {mode?: FetchOptionsMode};
-
-type PostJsonOptions = Omit<FetchOptions, "body" | "method"> & {data?: unknown};
-
-type GetJsonOptions = Omit<FetchOptions, "body" | "method">;
+type GetJsonOptions = Omit<RequestInit, "body" | "method">;
 
 const responseToJson = (response: Response) => response.json();
 
 const ensureResponseIsSucceeded = (response: Response) =>
   response.ok ? response : Promise.reject(new HttpResponseError(response));
 
-const safeFetch = (url: RequestInfo, options?: FetchOptions) =>
+const safeFetch = (url: RequestInfo, options?: RequestInit) =>
   fetch(url, options).then(ensureResponseIsSucceeded);
 
 const postJsonHeaders = {"Content-Type": "application/json"};

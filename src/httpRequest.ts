@@ -1,8 +1,12 @@
 import fetch from "isomorphic-fetch";
 
 import HttpResponseError from "./HttpResponseError";
+import {HttpMethod} from "./httpMethod";
 
-type RequestJsonParams = Omit<RequestInit, "body"> & {data?: unknown};
+type RequestJsonParams = Omit<RequestInit, "body" | "method"> & {
+  data?: unknown;
+  method?: HttpMethod;
+};
 
 const responseToJson = (response: Response) => response.json();
 

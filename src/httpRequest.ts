@@ -2,48 +2,34 @@ import fetch from "isomorphic-fetch";
 
 import HttpResponseError from "./HttpResponseError";
 
-type PostJsonParams = Omit<RequestInit, "body" | "method"> & {data?: unknown};
-
-type GetJsonParams = Omit<RequestInit, "body" | "method">;
+type RequestJsonParams = Omit<RequestInit, "body"> & {data?: unknown};
 
 const responseToJson = (response: Response) => response.json();
 
 const ensureResponseIsSucceeded = (response: Response) =>
   response.ok ? response : Promise.reject(new HttpResponseError(response));
 
-const safeFetch = (url: RequestInfo, params?: RequestInit) =>
+const request = (url: RequestInfo, params?: RequestInit) =>
   fetch(url, params).then(ensureResponseIsSucceeded);
 
-const postJsonHeaders = {"Content-Type": "application/json"};
+const requestJsonHeaders = {"Content-Type": "application/json"};
 
-const postJsonParamsToFetchParamsCommon = ({
+const getFetchParamsWithData = ({
   data,
+  headers,
   ...rest
-}: PostJsonParams) => ({
+}: RequestJsonParams) => ({
   ...rest,
-  method: "POST"
+  body: JSON.stringify(data),
+  headers: {...headers, ...requestJsonHeaders}
 });
 
-const postJsonParamsToFetchParamsWithData = (params: PostJsonParams) => ({
-  ...postJsonParamsToFetchParamsCommon(params),
-  body: JSON.stringify(params.data),
-  headers: {...params.headers, ...postJsonHeaders}
-});
+const getFetchParams = (params: RequestJsonParams) =>
+  params.data !== undefined ? getFetchParamsWithData(params) : params;
 
-const postJsonParamsToFetchParams = (params: PostJsonParams) =>
-  params.data !== undefined
-    ? postJsonParamsToFetchParamsWithData(params)
-    : postJsonParamsToFetchParamsCommon(params);
+const requestJson = (url: RequestInfo, params: RequestJsonParams = {}) =>
+  request(url, getFetchParams(params)).then(responseToJson);
 
-const postJson = (url: RequestInfo, params: PostJsonParams = {}) =>
-  safeFetch(url, postJsonParamsToFetchParams(params)).then(responseToJson);
+export {request, requestJson};
 
-const getJson = (url: RequestInfo, params?: GetJsonParams) =>
-  safeFetch(url, params).then(responseToJson);
-
-export {getJson, postJson, safeFetch};
-
-export type {
-  GetJsonParams as HttpRequestGetJsonParams,
-  PostJsonParams as HttpRequestPostJsonParams
-};
+export type {RequestJsonParams as HttpRequestJsonParams};

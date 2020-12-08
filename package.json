@@ -7,6 +7,14 @@
   "publishConfig": {
     "access": "public"
   },
+  "homepage": "https://github.com/mgtitimoli/utils-http#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mgtitimoli/utils-http.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mgtitimoli/utils-http/issues"
+  },
   "scripts": {
     "build": "run-s build:clean build:code build:readme",
     "build:clean": "rm -rf dist",
